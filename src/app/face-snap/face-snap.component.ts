@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FaceSnap } from '../models/face-snap';
 import { DatePipe, NgClass, NgStyle, TitleCasePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-face-snap',
@@ -14,34 +15,14 @@ import { DatePipe, NgClass, NgStyle, TitleCasePipe } from '@angular/common';
   templateUrl: './face-snap.component.html',
   styleUrl: './face-snap.component.scss'
 })
-export class FaceSnapComponent implements OnInit{
+export class FaceSnapComponent{
   @Input() faceSnap!:FaceSnap;
   
   userHasSnaped!:boolean;
-  snapButtonText!: string;
 
-  ngOnInit() {
-    this.userHasSnaped=false
-    this.snapButtonText="Oh Snap!"
-  }
+  constructor(private route: Router){}
 
-  onAddSnap(){
-    if (this.userHasSnaped) {
-      this.unSnap();
-    } else {
-      this.snap();
-    }
-  }
-
-  private snap() {
-    this.userHasSnaped = true;
-    this.snapButtonText = "Oh Snap!";
-    this.faceSnap.addSnap();
-  }
-
-  private unSnap() {
-    this.userHasSnaped = false;
-    this.snapButtonText = "Oops, Un Snap";
-    this.faceSnap.removeSnap();
+  onViewFaceSnap(){
+      this.route.navigateByUrl(`/facesnaps/${this.faceSnap.id}`);
   }
 }

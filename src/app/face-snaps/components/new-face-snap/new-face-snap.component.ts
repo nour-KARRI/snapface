@@ -1,20 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map, Observable } from 'rxjs';
-import { FaceSnap } from '../models/face-snap';
-import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
-import { FaceSnapService } from '../services/face-snap.service';
+import { FaceSnap } from '../../../core/models/face-snap';
 import { Router } from '@angular/router';
+import { FaceSnapService } from '../../../core/services/face-snap.service';
 
 @Component({
   selector: 'app-new-face-snap',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    DatePipe,
-    TitleCasePipe,
-    CommonModule
-  ],
   templateUrl: './new-face-snap.component.html',
   styleUrl: './new-face-snap.component.scss'
 })
@@ -53,8 +45,8 @@ export class NewFaceSnapComponent implements OnInit{
   }
 
   onSubmitForm(): void{
-    this.faceSnapService.addFaceSnap(this.snapForm.value);
-    this.router.navigateByUrl('/facesnaps')
+   this.faceSnapService.addFaceSnap(this.snapForm.value);
+   this.router.navigateByUrl('/facesnaps')
   }
 
 }
